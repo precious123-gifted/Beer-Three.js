@@ -3,6 +3,7 @@ import { OrbitControls } from "@react-three/drei";
 import { Shoe } from "./components/Shoe";
 import { Box } from '@react-three/drei';
 import { Model } from "./components/Lemon-bath-tub";
+import { Modelr } from "./components/BeerCrown-reall";
 import { BeerModel } from "./components/BeerCrown-real";
 // import Box from "./components/Box";
 import styled from "styled-components";
