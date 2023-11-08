@@ -30,7 +30,7 @@
   },
   "scripts": {
     "dev": "bun --watch run dev.tsx",
-    "predeploy": "bun build",
+    "predeploy": "rm -rf build && bun build ./src/index.tsx --outdir ./build && cp public/index.html build/index.html",
     "deploy": "gh-pages -d build"
   },
   "module": "index.ts",
