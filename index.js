@@ -71534,7 +71534,7 @@ if (typeof window !== "undefined") {
   }
 }
 
-// node_modules/@react-three/fiber/dist/index-563322db.esm.js
+// node_modules/@react-three/fiber/dist/index-0c28a0fd.esm.js
 var React2 = __toESM(require_react(), 1);
 var constants = __toESM(require_constants(), 1);
 
@@ -71647,7 +71647,7 @@ var create = function(createState) {
 var isSSR = typeof window === "undefined" || !window.navigator || /ServerSideRendering|^Deno\//.test(window.navigator.userAgent);
 var useIsomorphicLayoutEffect = isSSR ? import_react.useEffect : import_react.useLayoutEffect;
 
-// node_modules/@react-three/fiber/dist/index-563322db.esm.js
+// node_modules/@react-three/fiber/dist/index-0c28a0fd.esm.js
 var import_react_reconciler = __toESM(require_react_reconciler(), 1);
 var import_scheduler = __toESM(require_scheduler3(), 1);
 
@@ -71720,7 +71720,7 @@ var clear = (keys) => {
   }
 };
 
-// node_modules/@react-three/fiber/dist/index-563322db.esm.js
+// node_modules/@react-three/fiber/dist/index-0c28a0fd.esm.js
 var createRenderer = function(_roots, _getEventPriority) {
   function createInstance(type, {
     args = [],
@@ -71830,7 +71830,7 @@ var createRenderer = function(_roots, _getEventPriority) {
         }
       }
       const isPrimitive = (_child$__r3f5 = child.__r3f) == null ? undefined : _child$__r3f5.primitive;
-      const shouldDispose = dispose === undefined ? child.dispose !== null && !isPrimitive : dispose;
+      const shouldDispose = !isPrimitive && (dispose === undefined ? child.dispose !== null : dispose);
       if (!isPrimitive) {
         var _child$__r3f6;
         removeRecursive((_child$__r3f6 = child.__r3f) == null ? undefined : _child$__r3f6.objects, child, shouldDispose);
@@ -72748,9 +72748,23 @@ var useLoader = function(Proto, input, extensions, onProgress) {
   return Array.isArray(input) ? results : results[0];
 };
 var computeInitialSize = function(canvas, defaultSize) {
-  if (defaultSize)
-    return defaultSize;
-  if (typeof HTMLCanvasElement !== "undefined" && canvas instanceof HTMLCanvasElement && canvas.parentElement) {
+  const defaultStyle = typeof HTMLCanvasElement !== "undefined" && canvas instanceof HTMLCanvasElement;
+  if (defaultSize) {
+    const {
+      width,
+      height,
+      top,
+      left,
+      updateStyle = defaultStyle
+    } = defaultSize;
+    return {
+      width,
+      height,
+      top,
+      left,
+      updateStyle
+    };
+  } else if (typeof HTMLCanvasElement !== "undefined" && canvas instanceof HTMLCanvasElement && canvas.parentElement) {
     const {
       width,
       height,
@@ -72761,14 +72775,16 @@ var computeInitialSize = function(canvas, defaultSize) {
       width,
       height,
       top,
-      left
+      left,
+      updateStyle: defaultStyle
     };
   } else if (typeof OffscreenCanvas !== "undefined" && canvas instanceof OffscreenCanvas) {
     return {
       width: canvas.width,
       height: canvas.height,
       top: 0,
-      left: 0
+      left: 0,
+      updateStyle: defaultStyle
     };
   }
   return {
@@ -72855,6 +72871,7 @@ var createRoot2 = function(canvas) {
         state.set({
           camera
         });
+        raycaster.camera = camera;
       }
       if (!state.scene) {
         let scene;
@@ -73338,7 +73355,7 @@ var createStore2 = (invalidate, advance) => {
       gl,
       set
     } = rootState.getState();
-    if (size !== oldSize || viewport.dpr !== oldDpr) {
+    if (size.width !== oldSize.width || size.height !== oldSize.height || viewport.dpr !== oldDpr) {
       var _size$updateStyle;
       oldSize = size;
       oldDpr = viewport.dpr;
@@ -78624,7 +78641,7 @@ var Qe = function(e, r2, s2) {
   var i3 = ee(e), a2 = e, c2 = !F(e), p2 = r2.attrs, d = p2 === undefined ? E : p2, h = r2.componentId, f = h === undefined ? function(e2, t) {
     var n = typeof e2 != "string" ? "sc" : A(e2);
     Ze[n] = (Ze[n] || 0) + 1;
-    var o2 = "".concat(n, "-").concat(x("6.1.0" + n + Ze[n]));
+    var o2 = "".concat(n, "-").concat(x("6.1.1" + n + Ze[n]));
     return t ? "".concat(t, "-").concat(o2) : o2;
   }(r2.displayName, r2.parentComponentId) : h, m2 = r2.displayName, y = m2 === undefined ? function(e2) {
     return F(e2) ? "styled.".concat(e2) : "Styled(".concat(V(e2), ")");
@@ -78665,7 +78682,7 @@ var Qe = function(e, r2, s2) {
   }
   O.displayName = y;
   var D = import_react4.default.forwardRef(O);
-  return D.attrs = g, D.componentStyle = I, D.shouldForwardProp = S, D.displayName = y, D.foldedComponentIds = i3 ? te(a2.foldedComponentIds, a2.styledComponentId) : "", D.styledComponentId = v, D.target = i3 ? a2.target : e, Object.defineProperty(D, "defaultProps", { get: function() {
+  return D.attrs = g, D.componentStyle = I, D.displayName = y, D.shouldForwardProp = S, D.foldedComponentIds = i3 ? te(a2.foldedComponentIds, a2.styledComponentId) : "", D.styledComponentId = v, D.target = i3 ? a2.target : e, Object.defineProperty(D, "defaultProps", { get: function() {
     return this._foldedDefaultProps;
   }, set: function(e2) {
     this._foldedDefaultProps = i3 ? function(e3) {
@@ -78819,9 +78836,9 @@ var he = function(e) {
   return ue.set(e, t), pe.set(t, e), t;
 };
 var fe = function(e, t) {
-  ue.set(e, t), pe.set(t, e);
+  de = t + 1, ue.set(e, t), pe.set(t, e);
 };
-var me = "style[".concat(f, "][").concat("data-styled-version", '="').concat("6.1.0", '"]');
+var me = "style[".concat(f, "][").concat("data-styled-version", '="').concat("6.1.1", '"]');
 var ye = new RegExp("^".concat(f, '\\.g(\\d+)\\[id="([\\w\\d-]+)"\\].*?"([^"]*)'));
 var ve = function(e, t, n) {
   for (var o2, r2 = n.split(","), s2 = 0, i3 = r2.length;s2 < i3; s2++)
@@ -78845,7 +78862,7 @@ var we = function(e) {
     var t2 = Array.from(e2.querySelectorAll("style[".concat(f, "]")));
     return t2[t2.length - 1];
   }(n), s2 = r2 !== undefined ? r2.nextSibling : null;
-  o2.setAttribute(f, "active"), o2.setAttribute("data-styled-version", "6.1.0");
+  o2.setAttribute(f, "active"), o2.setAttribute("data-styled-version", "6.1.1");
   var i3 = Se();
   return i3 && o2.setAttribute("nonce", i3), n.insertBefore(o2, s2), o2;
 };
@@ -79002,7 +79019,7 @@ var Le = function(t) {
   }
   return r2;
 };
-var We = j("6.1.0");
+var We = j("6.1.1");
 var qe = function() {
   function e(e2, t, n) {
     this.rules = e2, this.staticRulesId = "", this.isStatic = false, this.componentId = t, this.baseHash = k(We, t), this.baseStyle = n, Ce.registerId(t);
@@ -79069,7 +79086,7 @@ var ut = function() {
   function e() {
     var e2 = this;
     this._emitSheetCSS = function() {
-      var t = e2.instance.toString(), n = Se(), o2 = ne([n && 'nonce="'.concat(n, '"'), "".concat(f, '="true"'), "".concat("data-styled-version", '="').concat("6.1.0", '"')].filter(Boolean), " ");
+      var t = e2.instance.toString(), n = Se(), o2 = ne([n && 'nonce="'.concat(n, '"'), "".concat(f, '="true"'), "".concat("data-styled-version", '="').concat("6.1.1", '"')].filter(Boolean), " ");
       return "<style ".concat(o2, ">").concat(t, "</style>");
     }, this.getStyleTags = function() {
       if (e2.sealed)
@@ -79079,7 +79096,7 @@ var ut = function() {
       var n;
       if (e2.sealed)
         throw ce(2);
-      var r2 = ((n = {})[f] = "", n["data-styled-version"] = "6.1.0", n.dangerouslySetInnerHTML = { __html: e2.instance.toString() }, n), s2 = Se();
+      var r2 = ((n = {})[f] = "", n["data-styled-version"] = "6.1.1", n.dangerouslySetInnerHTML = { __html: e2.instance.toString() }, n), s2 = Se();
       return s2 && (r2.nonce = s2), [import_react4.default.createElement("style", __assign({}, r2, { key: "sc-0-0" }))];
     }, this.seal = function() {
       e2.sealed = true;
