@@ -19,7 +19,7 @@ function App() {
 <directionalLight position={[-2,5,2]} intensity={1} />
 <pointLight position={[-5, 20, 10]} />
 
-<Shoe/>
+<Shoe />
       </Canvas>
 
      
